@@ -1,6 +1,6 @@
 # A Go Roguelike
 
-I'm building a [roguelike](https://en.wikipedia.org/wiki/Roguelike) game in Go called "Jumpdrive."
+I'm building a [roguelike](https://en.wikipedia.org/wiki/Roguelike) game in Go called ["Jumpdrive."](https://imgur.com/kYE6CvR)
 
 It's a 70's space sci-fi about a pilot who's crashed her scout craft onto an island on an alien planet.
 Why?
