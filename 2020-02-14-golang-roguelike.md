@@ -20,17 +20,17 @@ Ideally, we could define a generic grid:
 
 ```go
 type Grid (type E) struct {
-    cells []E
-    width int
-    height int
+	cells []E
+	width int
+	height int
 }
 
 func New (type E) (w, h int) Grid(E) {
-    return Grid(E){
-        width: w,
-        height: h,
-        cells: make([]E, w * h),
-    }
+	return Grid(E){
+		width: w,
+		height: h,
+		cells: make([]E, w * h),
+	}
 }
 ```
 
@@ -38,9 +38,9 @@ Which could be used in a variety of grid types:
 
 ```go
 type Tile struct {
-    Terrain int
-    Prop int
-    Light color.RGBA
+	Terrain int
+	Prop int
+	Light color.RGBA
 }
 
 tileGrid := grid.New(Tile)(128, 128)
@@ -54,7 +54,7 @@ neighbors := tileGrid.Neighbors4(16, 24)    // []Tile
 tile, wrapped := tileGrid.At(192, 100)      // Tile, bool
 
 continent := tileGrid.Contiguous(10, 20, func(t Tile) bool {    // []Tile
-    return t.Terrain == terrain.Rock
+	return t.Terrain == terrain.Rock
 })
 ```
 
@@ -73,10 +73,10 @@ type TileGrid struct {
 }
 
 func NewTileGrid(w, h int) TileGrid {
-    return TileGrid{
-        Grid: grid.Grid{Width: w, Height: h},
-        V:    make([]Tile, w * h),
-    }
+	return TileGrid{
+		Grid: grid.Grid{Width: w, Height: h},
+		V:    make([]Tile, w * h),
+	}
 }
 
 tileGrid := NewTileGrid(128, 128)
@@ -90,7 +90,7 @@ nn := tileGrid.Neighbors4(16, 24)    // []int
 i, wrapped := tileGrid.Index(192, 100)   // int, bool
 
 cc := tileGrid.Contiguous(i, func(i int) bool {  // []int
-    return tileGrid.V[i].Terrain == terrain.Rock
+	return tileGrid.V[i].Terrain == terrain.Rock
 })
 ```
 
@@ -102,7 +102,7 @@ nn := tileGrid.Neighbors4(16, 24)    // []int
 
 neighbors := make([]Tile, len(nn))
 for i, j := range nn {
-    neighbors[i] = tileGrid.V[j]
+	neighbors[i] = tileGrid.V[j]
 }
 ```
 
@@ -242,16 +242,16 @@ In a language like Go, you might first try to implement this pattern via broad c
 
 ```go
 type Player struct {
-    HealthComponent
-    PerceptionComponent
-    PositionComponent
-    WalkComponent
+	HealthComponent
+	PerceptionComponent
+	PositionComponent
+	WalkComponent
 }
 
 type Bullet struct {
-    DamageComponent
-    PositionComponent
-    FlyComponent
+	DamageComponent
+	PositionComponent
+	FlyComponent
 }
 ```
 
@@ -267,17 +267,17 @@ Enforcing order with embedded structs over a large set of non-homogenous objects
 type Entity interface{}
 
 func Update(entities []Entity) {
-    for _, e := range entities {
-        if h, ok := e.(*HealthComponent); ok {
-            h.UpdateHealth()
-        }
-    }
-    for _, e := range entities {
-        if p, ok := e.(*PerceptionComponent); ok {
-            p.UpdatePerception()
-        }
-    }
-    // ...etc
+	for _, e := range entities {
+		if h, ok := e.(*HealthComponent); ok {
+			h.UpdateHealth()
+		}
+	}
+	for _, e := range entities {
+		if p, ok := e.(*PerceptionComponent); ok {
+			p.UpdatePerception()
+		}
+	}
+	// ...etc
 }
 ```
 
@@ -296,11 +296,11 @@ behaviors. Each `Entity` in the `System` has a name, an ID, and zero or more tag
 
 ```go
 sys.Create("player",
-    &Player{},
+	&Player{},
 	&Position{Point: pt},
-    &Perceptive{Range: 48},
-    &Harmable{Health: 3},
-    &Inventory{},
+	&Perceptive{Range: 48},
+	&Harmable{Health: 3},
+	&Inventory{},
 ).Tag("creature")
 ```
 
@@ -310,10 +310,10 @@ Notice that a "crab" isn't so different from a "player:"
 
 ```go
 sys.Create("crab",
-    &Wander{Towards: gen.Water, Rng: rng},
-    &Position{Point: pt},
-    &Perceptive{Range: 32},
-    &Harmable{Health: 2},
+	&Wander{Towards: gen.Water, Rng: rng},
+	&Position{Point: pt},
+	&Perceptive{Range: 32},
+	&Harmable{Health: 2},
 ).Tag("creature")
 ```
 
@@ -323,9 +323,9 @@ A crab can be damaged by the gun via the interactions between the `Shoot` compon
 
 ```go
 sys.Create("ray-gun",
-    &Shoot{Ammo: "ray", Damage: 1, Range: 100},
-    &Position{Point: pt},
-    &Collectable{},
+	&Shoot{Ammo: "ray", Damage: 1, Range: 100},
+	&Position{Point: pt},
+	&Collectable{},
 )
 ```
 
@@ -343,18 +343,18 @@ They bear some similarity to the stacks of middleware that web developers may be
 
 ```go
 sys := ecs.NewSystem(
-    InputComponent,
-    WorldComponent,
-    WeatherComponent,
-    ShootComponent,
-    HarmableComponent,
-    PlayerComponent,
-    WanderComponent,
-    PositionComponent,
-    InventoryComponent,
-    CollectableComponent,
-    PerceptiveComponent,
-    BlockingComponent,
+	InputComponent,
+	WorldComponent,
+	WeatherComponent,
+	ShootComponent,
+	HarmableComponent,
+	PlayerComponent,
+	WanderComponent,
+	PositionComponent,
+	InventoryComponent,
+	CollectableComponent,
+	PerceptiveComponent,
+	BlockingComponent,
 )
 ```
 
@@ -375,9 +375,9 @@ func (p *Player) Step(s *ecs.System, e *ecs.Entity) {
 	input := s.ComponentNamed(InputComponent).(*Input)
 
 	h := e.Component(HarmableComponent).(*Harmable)
-    if h.Health <= 0 {
-        return
-    }
+	if h.Health <= 0 {
+		return
+	}
 
 	switch cmd := input.lastCommand.(type) {
 	case MoveCommand:
@@ -403,7 +403,7 @@ items := sys.EntitiesWith(game.CollectableComponent)
 creatures := sys.EntitiesTagged("creature")
 ```
 
-So, that's the hack project that I've been inching closer and closer to a usable state over the past couple of months. I learned today that [Diablo started as a roguelike with custom lighting](https://www.youtube.com/watch?v=VscdPA6sUkc) 24 years ago, so while this may not be cutting-edge, at least I'm in good company :)
+So, that's the hack project that I've been inching closer and closer towards a usable state over the past couple of months. I learned today that [Diablo started as a roguelike with custom lighting](https://www.youtube.com/watch?v=VscdPA6sUkc) 24 years ago, so while this may not be cutting-edge, at least I'm in good company :)
 
 ## Next steps
 
