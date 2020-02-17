@@ -405,6 +405,9 @@ creatures := sys.EntitiesTagged("creature")
 
 So, that's the hack project that I've been inching closer and closer towards a usable state over the past couple of months. I learned today that [Diablo started as a roguelike with custom lighting](https://www.youtube.com/watch?v=VscdPA6sUkc) 24 years ago, so while this may not be cutting-edge, at least I'm in good company :)
 
+## Considerations
+- Make grid an entity, as it is a game object after all
+
 ## Next steps
 
 - Some cleanup inspired by [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), especially in the very-messy rendering system.
@@ -413,3 +416,5 @@ So, that's the hack project that I've been inching closer and closer towards a u
 - Leveraging the grid (procgen terrain, prop variety; hiding valuable items in hard-to-reach cells...)
 
 If you have ideas, corrections, or resources, please share them: [@hunterloftis](https://twitter.com/hunterloftis)
+
+
